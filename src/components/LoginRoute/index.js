@@ -41,7 +41,7 @@ class LoginRoute extends Component {
     if (response.ok) {
       Cookies.set('jwt_token', data.jwt_token, {expires: 1})
       const {history} = this.props
-      history.push('/')
+      history.replace('/')
     }
     if (!response.ok) {
       this.setState({showErrorMessage: true, errorMessage: data.error_msg})
@@ -56,7 +56,7 @@ class LoginRoute extends Component {
       <div>
         <NxtWatchContext.Consumer>
           {value => {
-            const {lightTheme} = value
+            const {changedAttributesOnThemeChange} = value
 
             const {
               showPasswordStatus,
@@ -66,14 +66,15 @@ class LoginRoute extends Component {
 
             const passwordInputType = showPasswordStatus ? 'text' : 'password'
 
-            const watchLogoImage = lightTheme
-              ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
-              : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+            const {
+              watchLogoImage,
+              watchLogoImageAlt,
+            } = changedAttributesOnThemeChange()
 
             return (
               <form onSubmit={this.loginCredentialsSubmission}>
                 <div>
-                  <img src={watchLogoImage} alt="website logo" />
+                  <img src={watchLogoImage} alt={watchLogoImageAlt} />
                 </div>
                 <label htmlFor="usernameInputField">USERNAME</label>
                 <div>
