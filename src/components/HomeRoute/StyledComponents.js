@@ -57,7 +57,7 @@ export const BannerCloseButton = styled.button`
   font-size: 20px;
 `
 export const HomeComponent = styled.div`
-  background-color: #f4f4f4;
+  background-color: ${props => (props.value === true ? '#f4f4f4' : '#181818')};
   padding: 0;
 
   flex-grow: 1;

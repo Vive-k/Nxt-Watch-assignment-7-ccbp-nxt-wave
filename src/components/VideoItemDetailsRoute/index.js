@@ -144,13 +144,9 @@ class VideoItemDetailsRoute extends Component {
                     addOrRemoveAsOrFromSavedVideos(videoDetails)
                   }
 
-                  /*   const likeButtonText = likedList.includes(id)
-                    ? 'Liked'
-                    : 'Like'
+                  /*  const likeButtonText = likedList.includes(id)
 
-                  const DislikeButtonText = dislikedList.includes(id)
-                    ? 'disliked'
-                    : 'dislike' */
+                  const DislikeButtonText = dislikedList.includes(id) */
 
                   const savedListIds = savedList.map(each => each.id)
 
@@ -160,14 +156,26 @@ class VideoItemDetailsRoute extends Component {
 
                   return (
                     <ButtonContainer>
-                      <CustomizeButton type="button" onClick={addToLiked}>
+                      <CustomizeButton
+                        type="button"
+                        onClick={addToLiked}
+                        value={likedList.includes(id)}
+                      >
                         <BiLike /> Like
                       </CustomizeButton>
-                      <CustomizeButton type="button" onClick={addToDisLiked}>
+                      <CustomizeButton
+                        type="button"
+                        onClick={addToDisLiked}
+                        value={dislikedList.includes(id)}
+                      >
                         <BiDislike /> Dislike
                       </CustomizeButton>
 
-                      <CustomizeButton type="button" onClick={toSaveOrUnSave}>
+                      <CustomizeButton
+                        type="button"
+                        onClick={toSaveOrUnSave}
+                        value={savedListIds.includes(id)}
+                      >
                         <BiListPlus /> {saveButtonText}
                       </CustomizeButton>
                     </ButtonContainer>
@@ -208,9 +216,19 @@ class VideoItemDetailsRoute extends Component {
         <HeaderComponent />
         <NavigationAndTrendingPartContainer>
           <NavigationMenuAsLeftSideBar />
-          <TrendingComponentContainer>
-            {this.renderRoutePartOnDataResponse()}
-          </TrendingComponentContainer>
+          <NxtWatchContext.Consumer>
+            {value => {
+              const {lightTheme} = value
+              return (
+                <TrendingComponentContainer
+                  data-testid="videoItemDetails"
+                  value={lightTheme}
+                >
+                  {this.renderRoutePartOnDataResponse()}
+                </TrendingComponentContainer>
+              )
+            }}
+          </NxtWatchContext.Consumer>
         </NavigationAndTrendingPartContainer>
       </div>
     )

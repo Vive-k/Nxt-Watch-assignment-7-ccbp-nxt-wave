@@ -209,50 +209,57 @@ class HomeRoute extends Component {
         <HeaderComponent />
         <NavigationSideBarHomeComponentContainer>
           <NavigationMenuAsLeftSideBar />
-          <HomeComponentContainer>
-            {showBanner && (
-              <BannerContainer data-testid="banner">
-                <BannerContentsContainer>
-                  <BannerNxtWatchLogo
-                    src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                    alt="nxt watch logo"
-                  />
-                  <BannerText>
-                    Buy Nxt Watch Premium prepaid plans with UPI
-                  </BannerText>
-                  <GetItNowBannerButton type="button">
-                    GET IT NOW
-                  </GetItNowBannerButton>
-                </BannerContentsContainer>
-                <div>
-                  <BannerCloseButton
-                    type="button"
-                    data-testid="close"
-                    onClick={this.closeBanner}
-                  >
-                    <GrFormClose />
-                  </BannerCloseButton>
-                </div>
-              </BannerContainer>
-            )}
-            <HomeComponent>
-              <SearchFieldContainer>
-                <SearchInputField
-                  type="search"
-                  placeholder="Search"
-                  onChange={this.takingSearchInput}
-                />
-                <SearchButton
-                  type="button"
-                  data-testid="searchButton"
-                  onClick={this.getListOfVideosData}
-                >
-                  <BsSearch />
-                </SearchButton>
-              </SearchFieldContainer>
-              <>{this.renderHomePartOnDataResponse()}</>
-            </HomeComponent>
-          </HomeComponentContainer>
+          <NxtWatchContext.Consumer>
+            {value => {
+              const {lightTheme} = value
+              return (
+                <HomeComponentContainer>
+                  {showBanner && (
+                    <BannerContainer data-testid="banner">
+                      <BannerContentsContainer>
+                        <BannerNxtWatchLogo
+                          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                          alt="nxt watch logo"
+                        />
+                        <BannerText>
+                          Buy Nxt Watch Premium prepaid plans with UPI
+                        </BannerText>
+                        <GetItNowBannerButton type="button">
+                          GET IT NOW
+                        </GetItNowBannerButton>
+                      </BannerContentsContainer>
+                      <div>
+                        <BannerCloseButton
+                          type="button"
+                          data-testid="close"
+                          onClick={this.closeBanner}
+                        >
+                          <GrFormClose />
+                        </BannerCloseButton>
+                      </div>
+                    </BannerContainer>
+                  )}
+                  <HomeComponent data-testid="home" value={lightTheme}>
+                    <SearchFieldContainer>
+                      <SearchInputField
+                        type="search"
+                        placeholder="Search"
+                        onChange={this.takingSearchInput}
+                      />
+                      <SearchButton
+                        type="button"
+                        data-testid="searchButton"
+                        onClick={this.getListOfVideosData}
+                      >
+                        <BsSearch />
+                      </SearchButton>
+                    </SearchFieldContainer>
+                    <>{this.renderHomePartOnDataResponse()}</>
+                  </HomeComponent>
+                </HomeComponentContainer>
+              )
+            }}
+          </NxtWatchContext.Consumer>
         </NavigationSideBarHomeComponentContainer>
       </div>
     )

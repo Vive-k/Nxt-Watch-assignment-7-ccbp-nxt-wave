@@ -25,6 +25,7 @@ export const TrendingComponentContainer = styled.div`
   width: 100%;
   margin: 0;
 
+  background-color: ${props => (props.value === true ? '#ffffff' : '#0f0f0f')};
   @media screen and (min-width: 576px) {
     overflow-y: scroll;
   }
@@ -101,7 +102,7 @@ export const CustomizeButton = styled.button`
   display: flex;
   align-items: center;
   font-weight: bolder;
-  color: #64748b;
+  color: ${props => (props.value === true ? '#2563eb' : '#64748b')};
 `
 
 export const ChannelTitle = styled.p`

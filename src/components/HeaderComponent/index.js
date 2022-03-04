@@ -213,9 +213,9 @@ const HeaderComponent = props => {
                     {close => (
                       <LogoutPopUpContainer>
                         <div>
-                          {/*  <LogoutPopUpText>
+                          <LogoutPopUpText>
                             Are you sure you want to logout?
-                          </LogoutPopUpText> */}
+                          </LogoutPopUpText>
                         </div>
                         <CancelConfirmButtons>
                           <LogoutPopUpCancelButton

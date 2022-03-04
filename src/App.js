@@ -14,8 +14,6 @@ import NxtWatchContext from './Context/NxtWatchContext'
 
 import './App.css'
 
-// Replace your code here
-// const App = () =>
 class App extends Component {
   state = {lightTheme: true, likedList: [], dislikedList: [], savedList: []}
 

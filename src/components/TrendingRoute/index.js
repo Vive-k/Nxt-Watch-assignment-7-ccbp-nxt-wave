@@ -11,6 +11,8 @@ import HeaderComponent from '../HeaderComponent'
 import NavigationMenuAsLeftSideBar from '../NavigationMenuAsLeftSideBar'
 import FailureViewComponent from '../FailureViewComponent'
 
+import NxtWatchContext from '../../Context/NxtWatchContext'
+
 import {
   NavigationAndTrendingPartContainer,
   LoaderOrFailureContainer,
@@ -100,57 +102,68 @@ class TrendingRoute extends Component {
               <TrendingLogo as={HiFire} />
               <h1>Trending</h1>
             </TrendingTopHeadContainer>
-            <TrendingsContainer>
-              {listOfVideosDetails.map(each => {
-                const {channel} = each
+
+            <NxtWatchContext.Consumer>
+              {value => {
+                const {lightTheme} = value
+                console.log('.............')
+                console.log(lightTheme)
 
                 return (
-                  <TrendingVideoAndDetailsContainer key={each.id}>
-                    <LinkContainer as={Link} to={`/videos/${each.id}`}>
-                      <EachVideoThumbnailImage
-                        src={each.thumbnail_url}
-                        alt="video thumbnail"
-                      />
-                      <ChannelLogoVideoTitleInformationContainer>
-                        <ChannelLogoImage
-                          src={channel.profile_image_url}
-                          alt="channel logo"
-                        />
-                        <VideoTitleInformationContainer>
-                          <VideoTitle>{each.title}</VideoTitle>
-                          <VideoInformation>
-                            <ChannelTitle>{channel.name}</ChannelTitle>
-                            <ChannelViewAndUpdatedTimeContainer>
-                              <PrimitiveDotChangingScreens
-                                as={GoPrimitiveDot}
+                  <TrendingsContainer theme={lightTheme} data-testid="trending">
+                    {listOfVideosDetails.map(each => {
+                      const {channel} = each
+
+                      return (
+                        <TrendingVideoAndDetailsContainer key={each.id}>
+                          <LinkContainer as={Link} to={`/videos/${each.id}`}>
+                            <EachVideoThumbnailImage
+                              src={each.thumbnail_url}
+                              alt="video thumbnail"
+                            />
+                            <ChannelLogoVideoTitleInformationContainer>
+                              <ChannelLogoImage
+                                src={channel.profile_image_url}
+                                alt="channel logo"
                               />
-                              <ChannesViewsAndUpdatedTime>
-                                {each.view_count} views
-                              </ChannesViewsAndUpdatedTime>
-                              <PrimitiveDot as={GoPrimitiveDot} />
-                              <ChannesViewsAndUpdatedTime>
-                                {/* each.published_at */}
-                                {formatDistanceToNow(
-                                  new Date(each.published_at),
-                                  {
-                                    addSuffix: true,
-                                  },
-                                )
-                                  .split(' ')
-                                  .reverse()
-                                  .slice(0, 3)
-                                  .reverse()
-                                  .join(' ')}
-                              </ChannesViewsAndUpdatedTime>
-                            </ChannelViewAndUpdatedTimeContainer>
-                          </VideoInformation>
-                        </VideoTitleInformationContainer>
-                      </ChannelLogoVideoTitleInformationContainer>
-                    </LinkContainer>
-                  </TrendingVideoAndDetailsContainer>
+                              <VideoTitleInformationContainer>
+                                <VideoTitle>{each.title}</VideoTitle>
+                                <VideoInformation>
+                                  <ChannelTitle>{channel.name}</ChannelTitle>
+                                  <ChannelViewAndUpdatedTimeContainer>
+                                    <PrimitiveDotChangingScreens
+                                      as={GoPrimitiveDot}
+                                    />
+                                    <ChannesViewsAndUpdatedTime>
+                                      {each.view_count} views
+                                    </ChannesViewsAndUpdatedTime>
+                                    <PrimitiveDot as={GoPrimitiveDot} />
+                                    <ChannesViewsAndUpdatedTime>
+                                      {/* each.published_at */}
+                                      {formatDistanceToNow(
+                                        new Date(each.published_at),
+                                        {
+                                          addSuffix: true,
+                                        },
+                                      )
+                                        .split(' ')
+                                        .reverse()
+                                        .slice(0, 3)
+                                        .reverse()
+                                        .join(' ')}
+                                    </ChannesViewsAndUpdatedTime>
+                                  </ChannelViewAndUpdatedTimeContainer>
+                                </VideoInformation>
+                              </VideoTitleInformationContainer>
+                            </ChannelLogoVideoTitleInformationContainer>
+                          </LinkContainer>
+                        </TrendingVideoAndDetailsContainer>
+                      )
+                    })}
+                  </TrendingsContainer>
                 )
-              })}
-            </TrendingsContainer>
+              }}
+            </NxtWatchContext.Consumer>
           </div>
         )
       default:

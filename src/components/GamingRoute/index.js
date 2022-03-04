@@ -22,6 +22,7 @@ import {
   TitleGame,
   GameDetails,
 } from './StyledComponents'
+import NxtWatchContext from '../../Context/NxtWatchContext'
 
 const dataFetchStatusConstants = {
   initial: 'INITIAL',
@@ -93,21 +94,28 @@ class GamingRoute extends Component {
               />
               <h1>Gaming</h1>
             </TrendingTopHeadContainer>
-            <TrendingsContainer>
-              {listOfGamesDetails.map(each => (
-                <TrendingVideoAndDetailsContainer key={each.id}>
-                  <LinkContainer as={Link} to={`/videos/${each.id}`}>
-                    <EachVideoThumbnailImage
-                      src={each.thumbnail_url}
-                      alt="video thumbnail"
-                    />
-                    <TitleGame>{each.title}</TitleGame>
-                    <GameDetails>{each.view_count} Watching</GameDetails>
-                    <GameDetails>Worldwide</GameDetails>
-                  </LinkContainer>
-                </TrendingVideoAndDetailsContainer>
-              ))}
-            </TrendingsContainer>
+            <NxtWatchContext.Consumer>
+              {value => {
+                const {lightTheme} = value
+                return (
+                  <TrendingsContainer data-testid="gaming" theme={lightTheme}>
+                    {listOfGamesDetails.map(each => (
+                      <TrendingVideoAndDetailsContainer key={each.id}>
+                        <LinkContainer as={Link} to={`/videos/${each.id}`}>
+                          <EachVideoThumbnailImage
+                            src={each.thumbnail_url}
+                            alt="video thumbnail"
+                          />
+                          <TitleGame>{each.title}</TitleGame>
+                          <GameDetails>{each.view_count} Watching</GameDetails>
+                          <GameDetails>Worldwide</GameDetails>
+                        </LinkContainer>
+                      </TrendingVideoAndDetailsContainer>
+                    ))}
+                  </TrendingsContainer>
+                )
+              }}
+            </NxtWatchContext.Consumer>
           </>
         )
       default:

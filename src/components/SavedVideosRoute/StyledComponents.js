@@ -10,7 +10,7 @@ export const LoaderOrFailureContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
+  background-color: ${props => (props.value === true ? '#f4f4f4' : '#0f0f0f')};
   height: 97vh;
   @media screen and (min-width: 768px) {
     height: 97%;
@@ -37,15 +37,17 @@ export const SavedLogo = styled.p`
   margin: 10px;
   color: #ff0b37;
 `
+export const SavedVideosComponentContainer = styled.div`
+  width: 100%;
+`
 
 export const SavedVideoContainer = styled.ul`
   padding-left: 0;
   list-style-type: none;
-  width: 100%;
-  background-color: #f4f4f4;
+
+  background-color: ${props => (props.value === true ? '#f4f4f4' : '#0f0f0f')};
   margin: 0;
   height: 135vh;
-
   @media screen and (min-width: 576px) {
     padding-left: 20px;
     padding-top: 10px;

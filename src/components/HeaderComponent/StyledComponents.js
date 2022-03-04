@@ -45,9 +45,9 @@ export const HeaderItemsButton = styled.button`
 `
 
 export const HeaderProfileImage = styled.img`
-  // display: none;
+  display: none;
   @media screen and (min-width: 768px) {
-    //  display: block;
+    display: block;
     width: 35px;
   }
 `

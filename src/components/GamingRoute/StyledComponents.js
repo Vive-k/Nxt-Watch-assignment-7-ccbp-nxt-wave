@@ -47,7 +47,7 @@ export const TrendingsContainer = styled.ul`
   padding-left: 0;
   list-style-type: none;
   width: 100%;
-  background-color: #f4f4f4;
+  background-color: ${props => (props.theme === true ? '#f4f4f4' : '#0f0f0f')};
   margin: 0;
   height: 100vh;
   display: flex;

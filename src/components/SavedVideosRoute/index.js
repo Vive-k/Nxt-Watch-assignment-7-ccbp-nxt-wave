@@ -28,6 +28,7 @@ import {
   ChannesViewsAndUpdatedTime,
   PrimitiveDot,
   TextNoSavedVideos,
+  SavedVideosComponentContainer,
 } from './StyledComponents'
 
 const SavedVideosRoute = props => {
@@ -40,11 +41,14 @@ const SavedVideosRoute = props => {
         <NavigationMenuAsLeftSideBar />
         <NxtWatchContext.Consumer>
           {value => {
-            const {savedList} = value
+            const {savedList, lightTheme} = value
             return (
-              <div>
+              <SavedVideosComponentContainer>
                 {savedList.length === 0 ? (
-                  <LoaderOrFailureContainer>
+                  <LoaderOrFailureContainer
+                    data-testid="savedVideos"
+                    value={lightTheme}
+                  >
                     <NoSearchResultsImage
                       src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
                       alt="no saved videos"
@@ -57,13 +61,11 @@ const SavedVideosRoute = props => {
                 ) : (
                   <>
                     <SavedTopHeadContainer>
-                      <SavedLogo
-                        as={HiFire}
-                        style={{color: 'red', fontSize: '35px'}}
-                      />
+                      <SavedLogo as={HiFire} />
                       <h1>Saved Videos</h1>
                     </SavedTopHeadContainer>
-                    <SavedVideoContainer>
+
+                    <SavedVideoContainer value={lightTheme}>
                       {savedList.map(each => {
                         const {channel} = each
 
@@ -116,7 +118,7 @@ const SavedVideosRoute = props => {
                     </SavedVideoContainer>
                   </>
                 )}
-              </div>
+              </SavedVideosComponentContainer>
             )
           }}
         </NxtWatchContext.Consumer>
