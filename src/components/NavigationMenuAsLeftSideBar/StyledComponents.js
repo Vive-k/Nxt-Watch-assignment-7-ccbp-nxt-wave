@@ -1,16 +1,16 @@
 import styled from 'styled-components'
 
 export const NavigationMenuContainerWrapper = styled.div`
-  /* display: none;
-  @media screen and (min-width: 768px) { */
-  display: flex;
-  background-color: transparent;
-  height: 120vh;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0;
-  width: 242px;
-  /*  } */
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: flex;
+    background-color: transparent;
+    height: 120vh;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+    width: 242px;
+  }
 `
 export const NavigationItemsContainer = styled.ul`
   padding-left: 0px;
