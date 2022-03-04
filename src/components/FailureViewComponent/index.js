@@ -8,6 +8,11 @@ import {
 
 const FailureViewComponent = props => {
   const {retryFunction} = props
+
+  const retry = () => {
+    retryFunction()
+  }
+
   console.log('failure view component')
   return (
     <NxtWatchContext.Consumer>
@@ -17,6 +22,7 @@ const FailureViewComponent = props => {
           failureViewImage,
           failureViewImageAlt,
         } = changedAttributesOnThemeChange()
+
         return (
           <div>
             <FailureViewImage
@@ -30,7 +36,7 @@ const FailureViewComponent = props => {
               We are having some trouble to complete your request. Please try
               again.
             </HavingTroubleText>
-            <RetryButton type="button" onClick={retryFunction}>
+            <RetryButton type="button" onClick={retry}>
               Retry
             </RetryButton>
           </div>

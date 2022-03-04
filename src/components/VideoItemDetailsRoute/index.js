@@ -10,6 +10,26 @@ import NavigationMenuAsLeftSideBar from '../NavigationMenuAsLeftSideBar'
 import FailureViewComponent from '../FailureViewComponent'
 import NxtWatchContext from '../../Context/NxtWatchContext'
 
+import {
+  LoaderOrFailureContainer,
+  LoaderComponent,
+  NavigationAndTrendingPartContainer,
+  TrendingVideoAndDetailsContainer,
+  TrendingComponentContainer,
+  EachVideoThumbnailImage,
+  VideoTitle,
+  VideoDetailsOptionsContainers,
+  ViewsAndUpdatedTimeContainer,
+  HorizontalRule,
+  ChannelDetailsContainer,
+  ChannelImage,
+  PrimitiveDot,
+  CustomizeButton,
+  ButtonContainer,
+  ChannelTitle,
+  ChannelSubscriber,
+} from './StyledComponents'
+
 const dataFetchStatusConstants = {
   initial: 'INITIAL',
   loading: 'LOADING',
@@ -55,32 +75,39 @@ class VideoItemDetailsRoute extends Component {
     switch (dataFetchStatus) {
       case dataFetchStatusConstants.loading:
         return (
-          <div>
-            <div
-              className="loader-container"
-              data-testid="loader"
-              style={{backgroundColor: '#f9f9f9', textAlign: 'center'}}
-            >
-              <Loader type="ThreeDots" color="#4f46e5" height="50" width="50" />
-            </div>
-          </div>
+          <LoaderOrFailureContainer data-testid="loader">
+            <LoaderComponent
+              as={Loader}
+              type="ThreeDots"
+              color="#4f46e5"
+              height="50"
+              width="50"
+            />
+          </LoaderOrFailureContainer>
         )
       case dataFetchStatusConstants.failure:
         return (
-          <div>
+          <LoaderOrFailureContainer>
             <FailureViewComponent retryFunction={this.getVideoData} />
-          </div>
+          </LoaderOrFailureContainer>
         )
       case dataFetchStatusConstants.success:
         return (
-          <div>
-            <ReactPlayer url={videoDetails.video_url} controls />
-            <p>{videoDetails.title}</p>
+          <TrendingVideoAndDetailsContainer>
+            <EachVideoThumbnailImage
+              as={ReactPlayer}
+              url={videoDetails.video_url}
+              controls
+              width="100%"
+              height="70vh"
+            />
 
-            <div>
-              <div>
-                <p>{videoDetails.view_count}</p>
-                <GoPrimitiveDot />
+            <VideoTitle>{videoDetails.title}</VideoTitle>
+
+            <VideoDetailsOptionsContainers>
+              <ViewsAndUpdatedTimeContainer>
+                <p>{videoDetails.view_count} Views </p>
+                <PrimitiveDot as={GoPrimitiveDot} />
                 <p>
                   {formatDistanceToNow(new Date(videoDetails.published_at), {
                     addSuffix: true,
@@ -89,7 +116,7 @@ class VideoItemDetailsRoute extends Component {
                     .slice(1)
                     .join(' ')}
                 </p>
-              </div>
+              </ViewsAndUpdatedTimeContainer>
 
               <NxtWatchContext.Consumer>
                 {value => {
@@ -132,33 +159,40 @@ class VideoItemDetailsRoute extends Component {
                     : 'Save'
 
                   return (
-                    <div>
-                      <button type="button" onClick={addToLiked}>
+                    <ButtonContainer>
+                      <CustomizeButton type="button" onClick={addToLiked}>
                         <BiLike /> Like
-                      </button>
-                      <button type="button" onClick={addToDisLiked}>
+                      </CustomizeButton>
+                      <CustomizeButton type="button" onClick={addToDisLiked}>
                         <BiDislike /> Dislike
-                      </button>
+                      </CustomizeButton>
 
-                      <button type="button" onClick={toSaveOrUnSave}>
+                      <CustomizeButton type="button" onClick={toSaveOrUnSave}>
                         <BiListPlus /> {saveButtonText}
-                      </button>
-                    </div>
+                      </CustomizeButton>
+                    </ButtonContainer>
                   )
                 }}
               </NxtWatchContext.Consumer>
-            </div>
+            </VideoDetailsOptionsContainers>
 
-            <hr />
-            <div>
-              <img src={channel.profile_image_url} alt="channel logo" />
+            <HorizontalRule />
+            <ChannelDetailsContainer>
+              <ChannelImage
+                src={channel.profile_image_url}
+                alt="channel logo"
+              />
               <div>
-                <p>{channel.name}</p>
-                <p>{channel.subscriber_count} subscribers</p>
-                <p>{videoDetails.description}</p>
+                <ChannelTitle>{channel.name}</ChannelTitle>
+                <ChannelSubscriber>
+                  {channel.subscriber_count} subscribers
+                </ChannelSubscriber>
+                <ChannelSubscriber>
+                  {videoDetails.description}
+                </ChannelSubscriber>
               </div>
-            </div>
-          </div>
+            </ChannelDetailsContainer>
+          </TrendingVideoAndDetailsContainer>
         )
       default:
         return null
@@ -172,8 +206,12 @@ class VideoItemDetailsRoute extends Component {
     return (
       <div>
         <HeaderComponent />
-        <NavigationMenuAsLeftSideBar />
-        <div>{this.renderRoutePartOnDataResponse()}</div>
+        <NavigationAndTrendingPartContainer>
+          <NavigationMenuAsLeftSideBar />
+          <TrendingComponentContainer>
+            {this.renderRoutePartOnDataResponse()}
+          </TrendingComponentContainer>
+        </NavigationAndTrendingPartContainer>
       </div>
     )
   }

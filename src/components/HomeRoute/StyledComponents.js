@@ -10,7 +10,7 @@ export const HomeComponentContainer = styled.div`
   display: flex;
   flex-direction: column;
   @media screen and (min-width: 576px) {
-    height: 150vh;
+    height: 120vh;
     overflow-y: scroll;
   }
 `
@@ -234,4 +234,20 @@ export const PrimitiveDotChangingScreens = styled.p`
 export const PrimitiveDot = styled.p`
   padding-right: 5px;
   padding-bottom: 5px;
+`
+
+export const FailureViewImage = styled.img`
+  width: 30%;
+  min-width: 300px;
+  margin: 0;
+`
+
+export const FailureTextSomethingWentWrong = styled.h1`
+  font-size: 25px;
+  margin-bottom: 0;
+`
+
+export const HavingTroubleText = styled.p`
+  color: #475569;
+  font-weight: 500;
 `

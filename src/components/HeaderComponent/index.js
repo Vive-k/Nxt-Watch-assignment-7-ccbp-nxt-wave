@@ -176,7 +176,7 @@ const HeaderComponent = props => {
                       <LogoutPopUpContainer>
                         <div>
                           <LogoutPopUpText>
-                            Are you sure you want to logout?
+                            Are you sure, you want to logout
                           </LogoutPopUpText>
                         </div>
                         <CancelConfirmButtons>
@@ -197,7 +197,7 @@ const HeaderComponent = props => {
                       </LogoutPopUpContainer>
                     )}
                   </Popup>
-                </HeaderLargeDisplayLogoutButtonContainer>
+                </HeaderLargeDisplayLogoutButtonContainer>{' '}
                 <HeaderHamburgerLogoutPopUp>
                   <Popup
                     modal
@@ -213,9 +213,9 @@ const HeaderComponent = props => {
                     {close => (
                       <LogoutPopUpContainer>
                         <div>
-                          <LogoutPopUpText>
+                          {/*  <LogoutPopUpText>
                             Are you sure you want to logout?
-                          </LogoutPopUpText>
+                          </LogoutPopUpText> */}
                         </div>
                         <CancelConfirmButtons>
                           <LogoutPopUpCancelButton

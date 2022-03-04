@@ -5,6 +5,16 @@ import {Redirect} from 'react-router-dom'
 
 import NxtWatchContext from '../../Context/NxtWatchContext'
 
+import {
+  LoginPage,
+  LoginCard,
+  LogoImage,
+  Label,
+  InputField,
+  ShowPassword,
+  LoginButton,
+} from './StyledComponents'
+
 // const LoginRoute = props =>
 class LoginRoute extends Component {
   state = {
@@ -53,7 +63,7 @@ class LoginRoute extends Component {
       return <Redirect to="/" />
     }
     return (
-      <div>
+      <LoginPage>
         <NxtWatchContext.Consumer>
           {value => {
             const {changedAttributesOnThemeChange} = value
@@ -72,44 +82,44 @@ class LoginRoute extends Component {
             } = changedAttributesOnThemeChange()
 
             return (
-              <form onSubmit={this.loginCredentialsSubmission}>
-                <div>
-                  <img src={watchLogoImage} alt={watchLogoImageAlt} />
-                </div>
-                <label htmlFor="usernameInputField">USERNAME</label>
-                <div>
-                  <input
-                    type="text"
-                    id="usernameInputField"
-                    placeholder="Username"
-                    onChange={this.takingUsernameInput}
-                  />
-                </div>
+              <LoginCard onSubmit={this.loginCredentialsSubmission}>
+                <LogoImage src={watchLogoImage} alt={watchLogoImageAlt} />
 
-                <label htmlFor="passwordInputField">PASSWORD</label>
-                <div>
-                  <input
-                    type={passwordInputType}
-                    id="passwordInputField"
-                    placeholder="Password"
-                    onChange={this.takingPasswordInput}
-                  />
-                </div>
+                <Label htmlFor="usernameInputField">USERNAME</Label>
+
+                <InputField
+                  type="text"
+                  id="usernameInputField"
+                  placeholder="Username"
+                  onChange={this.takingUsernameInput}
+                />
+
+                <Label htmlFor="passwordInputField">PASSWORD</Label>
+
+                <InputField
+                  type={passwordInputType}
+                  id="passwordInputField"
+                  placeholder="Password"
+                  onChange={this.takingPasswordInput}
+                />
+
                 <div>
                   <input
                     id="showPasswordInputField"
                     type="checkbox"
                     onChange={this.changeShowPasswordStatus}
                   />
-                  <label htmlFor="showPasswordInputField">Show Password</label>
+                  <ShowPassword htmlFor="showPasswordInputField">
+                    Show Password
+                  </ShowPassword>
                 </div>
-                <button type="submit">Login</button>
+                <LoginButton type="submit">Login</LoginButton>
                 {showErrorMessage && <p>*{errorMessage}</p>}
-              </form>
+              </LoginCard>
             )
           }}
         </NxtWatchContext.Consumer>
-      </div>
+      </LoginPage>
     )
   }
 }

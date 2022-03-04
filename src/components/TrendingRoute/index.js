@@ -11,6 +11,29 @@ import HeaderComponent from '../HeaderComponent'
 import NavigationMenuAsLeftSideBar from '../NavigationMenuAsLeftSideBar'
 import FailureViewComponent from '../FailureViewComponent'
 
+import {
+  NavigationAndTrendingPartContainer,
+  LoaderOrFailureContainer,
+  TrendingComponentContainer,
+  LoaderComponent,
+  TrendingTopHeadContainer,
+  TrendingLogo,
+  TrendingVideoAndDetailsContainer,
+  TrendingsContainer,
+  EachVideoThumbnailImage,
+  LinkContainer,
+  ChannelLogoVideoTitleInformationContainer,
+  ChannelLogoImage,
+  VideoTitleInformationContainer,
+  VideoTitle,
+  VideoInformation,
+  ChannelTitle,
+  ChannesViewsAndUpdatedTime,
+  PrimitiveDotChangingScreens,
+  PrimitiveDot,
+  ChannelViewAndUpdatedTimeContainer,
+} from './StyledComponents'
+
 const dataFetchStatusConstants = {
   initial: 'INITIAL',
   loading: 'LOADING',
@@ -18,7 +41,6 @@ const dataFetchStatusConstants = {
   success: 'SUCCESS',
 }
 
-// const TrendingRoute = props =>
 class TrendingRoute extends Component {
   state = {
     listOfVideosDetails: [],
@@ -55,61 +77,81 @@ class TrendingRoute extends Component {
     switch (dataFetchStatus) {
       case dataFetchStatusConstants.loading:
         return (
-          <div>
-            <div
-              className="loader-container"
-              data-testid="loader"
-              style={{backgroundColor: '#f9f9f9', textAlign: 'center'}}
-            >
-              <Loader type="ThreeDots" color="#4f46e5" height="50" width="50" />
-            </div>
-          </div>
+          <LoaderOrFailureContainer data-testid="loader">
+            <LoaderComponent
+              as={Loader}
+              type="ThreeDots"
+              color="#4f46e5"
+              height="50"
+              width="50"
+            />
+          </LoaderOrFailureContainer>
         )
       case dataFetchStatusConstants.failure:
         return (
-          <div>
+          <LoaderOrFailureContainer>
             <FailureViewComponent retryFunction={this.getListOfVideosData} />
-          </div>
+          </LoaderOrFailureContainer>
         )
       case dataFetchStatusConstants.success:
         return (
-          <>
-            <div>
-              <HiFire style={{color: 'red', fontSize: '35px'}} />
+          <div>
+            <TrendingTopHeadContainer>
+              <TrendingLogo as={HiFire} />
               <h1>Trending</h1>
-            </div>
-            <ul>
+            </TrendingTopHeadContainer>
+            <TrendingsContainer>
               {listOfVideosDetails.map(each => {
                 const {channel} = each
 
                 return (
-                  <li key={each.id}>
-                    <Link to={`/videos/${each.id}`}>
-                      <img src={each.thumbnail_url} alt="video thumbnail" />
-                      <div>
-                        <p>{each.title}</p>
-                        <div>
-                          <p>{channel.name}</p>
-                          <GoPrimitiveDot />
-                          <p>{each.view_count} views</p>
-                          <GoPrimitiveDot />
-                          <p>
-                            {each.published_at}
-                            {/* {formatDistanceToNow(new Date(each.published_at), {
-                              addSuffix: true,
-                            })
-                              .split(' ')
-                              .slice(1)
-                              .join(' ')} */}
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
+                  <TrendingVideoAndDetailsContainer key={each.id}>
+                    <LinkContainer as={Link} to={`/videos/${each.id}`}>
+                      <EachVideoThumbnailImage
+                        src={each.thumbnail_url}
+                        alt="video thumbnail"
+                      />
+                      <ChannelLogoVideoTitleInformationContainer>
+                        <ChannelLogoImage
+                          src={channel.profile_image_url}
+                          alt="channel logo"
+                        />
+                        <VideoTitleInformationContainer>
+                          <VideoTitle>{each.title}</VideoTitle>
+                          <VideoInformation>
+                            <ChannelTitle>{channel.name}</ChannelTitle>
+                            <ChannelViewAndUpdatedTimeContainer>
+                              <PrimitiveDotChangingScreens
+                                as={GoPrimitiveDot}
+                              />
+                              <ChannesViewsAndUpdatedTime>
+                                {each.view_count} views
+                              </ChannesViewsAndUpdatedTime>
+                              <PrimitiveDot as={GoPrimitiveDot} />
+                              <ChannesViewsAndUpdatedTime>
+                                {/* each.published_at */}
+                                {formatDistanceToNow(
+                                  new Date(each.published_at),
+                                  {
+                                    addSuffix: true,
+                                  },
+                                )
+                                  .split(' ')
+                                  .reverse()
+                                  .slice(0, 3)
+                                  .reverse()
+                                  .join(' ')}
+                              </ChannesViewsAndUpdatedTime>
+                            </ChannelViewAndUpdatedTimeContainer>
+                          </VideoInformation>
+                        </VideoTitleInformationContainer>
+                      </ChannelLogoVideoTitleInformationContainer>
+                    </LinkContainer>
+                  </TrendingVideoAndDetailsContainer>
                 )
               })}
-            </ul>
-          </>
+            </TrendingsContainer>
+          </div>
         )
       default:
         return null
@@ -123,8 +165,12 @@ class TrendingRoute extends Component {
     return (
       <div>
         <HeaderComponent />
-        <NavigationMenuAsLeftSideBar />
-        <div>{this.renderRoutePartOnDataResponse()}</div>
+        <NavigationAndTrendingPartContainer>
+          <NavigationMenuAsLeftSideBar />
+          <TrendingComponentContainer>
+            {this.renderRoutePartOnDataResponse()}
+          </TrendingComponentContainer>
+        </NavigationAndTrendingPartContainer>
       </div>
     )
   }

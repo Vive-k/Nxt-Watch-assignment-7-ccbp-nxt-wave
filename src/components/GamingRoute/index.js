@@ -8,6 +8,21 @@ import HeaderComponent from '../HeaderComponent'
 import NavigationMenuAsLeftSideBar from '../NavigationMenuAsLeftSideBar'
 import FailureViewComponent from '../FailureViewComponent'
 
+import {
+  NavigationSideBarComponentContainer,
+  LoaderComponent,
+  LoaderOrFailureContainer,
+  HomeComponent,
+  TrendingLogo,
+  TrendingTopHeadContainer,
+  TrendingsContainer,
+  TrendingVideoAndDetailsContainer,
+  LinkContainer,
+  EachVideoThumbnailImage,
+  TitleGame,
+  GameDetails,
+} from './StyledComponents'
+
 const dataFetchStatusConstants = {
   initial: 'INITIAL',
   loading: 'LOADING',
@@ -52,41 +67,47 @@ class GamingRoute extends Component {
     switch (dataFetchStatus) {
       case dataFetchStatusConstants.loading:
         return (
-          <div>
-            <div
-              className="loader-container"
-              data-testid="loader"
-              style={{backgroundColor: '#f9f9f9', textAlign: 'center'}}
-            >
-              <Loader type="ThreeDots" color="#4f46e5" height="50" width="50" />
-            </div>
-          </div>
+          <LoaderOrFailureContainer data-testid="loader">
+            <LoaderComponent
+              as={Loader}
+              type="ThreeDots"
+              color="#4f46e5"
+              height="50"
+              width="50"
+            />
+          </LoaderOrFailureContainer>
         )
       case dataFetchStatusConstants.failure:
         return (
-          <div>
+          <LoaderOrFailureContainer>
             <FailureViewComponent retryFunction={this.getListOfGamesData} />
-          </div>
+          </LoaderOrFailureContainer>
         )
       case dataFetchStatusConstants.success:
         return (
           <>
-            <div>
-              <SiYoutubegaming style={{color: 'red', fontSize: '35px'}} />
+            <TrendingTopHeadContainer>
+              <TrendingLogo
+                as={SiYoutubegaming}
+                style={{color: 'red', fontSize: '35px'}}
+              />
               <h1>Gaming</h1>
-            </div>
-            <ul>
+            </TrendingTopHeadContainer>
+            <TrendingsContainer>
               {listOfGamesDetails.map(each => (
-                <li key={each.id}>
-                  <Link to={`/videos/${each.id}`}>
-                    <img src={each.thumbnail_url} alt="video thumbnail" />
-                    <p>{each.title}</p>
-                    <p>{each.view_count} Watching</p>
-                    <p>Worldwide</p>
-                  </Link>
-                </li>
+                <TrendingVideoAndDetailsContainer key={each.id}>
+                  <LinkContainer as={Link} to={`/videos/${each.id}`}>
+                    <EachVideoThumbnailImage
+                      src={each.thumbnail_url}
+                      alt="video thumbnail"
+                    />
+                    <TitleGame>{each.title}</TitleGame>
+                    <GameDetails>{each.view_count} Watching</GameDetails>
+                    <GameDetails>Worldwide</GameDetails>
+                  </LinkContainer>
+                </TrendingVideoAndDetailsContainer>
               ))}
-            </ul>
+            </TrendingsContainer>
           </>
         )
       default:
@@ -101,9 +122,10 @@ class GamingRoute extends Component {
     return (
       <div>
         <HeaderComponent />
-        <NavigationMenuAsLeftSideBar />
-
-        <div>{this.renderRoutePartOnDataResponse()}</div>
+        <NavigationSideBarComponentContainer>
+          <NavigationMenuAsLeftSideBar />
+          <HomeComponent>{this.renderRoutePartOnDataResponse()}</HomeComponent>
+        </NavigationSideBarComponentContainer>
       </div>
     )
   }
