@@ -79,7 +79,8 @@ export const PoppingContainer = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: ${props => (props.value === true ? '#ffffff' : '#000000')};
+
   @media screen and (min-width: 768px) {
     display: none;
   }
@@ -92,6 +93,7 @@ export const PopUpCloseButton = styled.button`
   cursor: pointer;
   padding-top: 10px;
   font-size: 25px;
+  color: ${props => (props.value === true ? null : '#ffffff')};
 `
 
 export const PopUpContentsContainer = styled.div`
@@ -110,6 +112,12 @@ export const EachNavigationItemInPopUp = styled.li`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background-color: ${props => {
+    if (props.selection === true) {
+      return props.theme === true ? '#e2e8f0' : '#212121'
+    }
+    return null
+  }};
 `
 
 export const EachPopUpNavigationContainer = styled.div`
@@ -132,7 +140,7 @@ export const EachNavigationItemName = styled.p`
   margin: 30px;
 `
 export const LogoutPopUpContainer = styled.div`
-  background-color: #ffffff;
+  background-color: ${props => (props.value === true ? '#ffffff' : '#000000')};
   text-align: center;
   padding: 10px;
   padding-left: 30px;
@@ -174,4 +182,11 @@ export const CancelConfirmButtons = styled.div`
 `
 export const SunButton = styled.p`
   color: #ffffff;
+`
+
+export const Icons = styled.p`
+  color: ${props => (props.value ? null : '#ffffff')};
+`
+export const IconPopUp = styled.p`
+  color: ${props => (props.selection === true ? 'red' : null)};
 `

@@ -10,10 +10,11 @@ export const LoaderOrFailureContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 97vh;
+  width: 100%;
+
   background-color: ${props => (props.value === false ? '#0f0f0f' : '#f4f4f4')};
 
   @media screen and (min-width: 768px) {
-    width: 100%;
     height: 120vh;
   }
 `

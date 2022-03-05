@@ -51,7 +51,9 @@ const SavedVideosRoute = () => (
                     src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
                     alt="no saved videos"
                   />
-                  <NoSavedVideo>No saved videos found</NoSavedVideo>
+                  <NoSavedVideo value={lightTheme}>
+                    No saved videos found
+                  </NoSavedVideo>
                   <TextNoSavedVideos>
                     You can save your videos while watching them
                   </TextNoSavedVideos>

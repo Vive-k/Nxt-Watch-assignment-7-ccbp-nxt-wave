@@ -36,6 +36,8 @@ import {
   LogoutPopUpConfirmButton,
   CancelConfirmButtons,
   SunButton,
+  Icons,
+  IconPopUp,
 } from './StyledComponents'
 
 const HeaderComponent = props => {
@@ -44,6 +46,8 @@ const HeaderComponent = props => {
     Cookies.remove('jwt_token')
     history.replace('/login')
   }
+
+  const {match} = props
 
   return (
     <NxtWatchContext.Consumer>
@@ -95,57 +99,89 @@ const HeaderComponent = props => {
                         type="button"
                         className="trigger-button"
                       >
-                        <GiHamburgerMenu />
+                        <Icons as={GiHamburgerMenu} value={lightTheme} />
                       </HeaderItemsButton>
                     }
                   >
                     {close => (
-                      <PoppingContainer>
+                      <PoppingContainer value={lightTheme}>
                         <PopUpCloseButton
                           type="button"
                           className="trigger-button"
                           onClick={() => close()}
+                          value={lightTheme}
                         >
                           <IoMdClose />
                         </PopUpCloseButton>
                         <PopUpContentsContainer>
                           <PopUpContents>
-                            <EachNavigationItemInPopUp>
-                              <EachPopUpNavigationContainer as={Link} to="/">
-                                <AiFillHome />
+                            <EachNavigationItemInPopUp
+                              selection={match.path === '/'}
+                              theme={lightTheme}
+                            >
+                              <EachPopUpNavigationContainer
+                                as={Link}
+                                to="/"
+                                onClick={() => close()}
+                              >
+                                <IconPopUp
+                                  as={AiFillHome}
+                                  selection={match.path === '/'}
+                                />
                                 <EachNavigationItemName>
                                   Home
                                 </EachNavigationItemName>
                               </EachPopUpNavigationContainer>
                             </EachNavigationItemInPopUp>
-                            <EachNavigationItemInPopUp>
+                            <EachNavigationItemInPopUp
+                              selection={match.path === '/trending'}
+                              theme={lightTheme}
+                            >
                               <EachPopUpNavigationContainer
                                 as={Link}
                                 to="/trending"
+                                onClick={() => close()}
                               >
-                                <HiFire />
+                                <IconPopUp
+                                  as={HiFire}
+                                  selection={match.path === '/trending'}
+                                />
                                 <EachNavigationItemName>
                                   Trending
                                 </EachNavigationItemName>
                               </EachPopUpNavigationContainer>
                             </EachNavigationItemInPopUp>
-                            <EachNavigationItemInPopUp>
+                            <EachNavigationItemInPopUp
+                              selection={match.path === '/gaming'}
+                              theme={lightTheme}
+                            >
                               <EachPopUpNavigationContainer
                                 as={Link}
                                 to="/gaming"
+                                onClick={() => close()}
                               >
-                                <SiYoutubegaming />
+                                <IconPopUp
+                                  as={SiYoutubegaming}
+                                  selection={match.path === '/gaming'}
+                                />
                                 <EachNavigationItemName>
                                   Gaming
                                 </EachNavigationItemName>
                               </EachPopUpNavigationContainer>
                             </EachNavigationItemInPopUp>
-                            <EachNavigationItemInPopUp>
+                            <EachNavigationItemInPopUp
+                              selection={match.path === '/saved-videos'}
+                              theme={lightTheme}
+                            >
                               <EachPopUpNavigationContainer
                                 as={Link}
-                                to="saved-videos"
+                                to="/saved-videos"
+                                onClick={() => close()}
                               >
-                                <MdPlaylistAdd />
+                                <IconPopUp
+                                  as={MdPlaylistAdd}
+                                  selection={match.path === '/saved-videos'}
+                                />
                                 <EachNavigationItemName>
                                   Saved videos
                                 </EachNavigationItemName>
@@ -172,7 +208,7 @@ const HeaderComponent = props => {
                     }
                   >
                     {close => (
-                      <LogoutPopUpContainer>
+                      <LogoutPopUpContainer value={lightTheme}>
                         <div>
                           <LogoutPopUpText>
                             Are you sure, you want to logout
@@ -205,12 +241,12 @@ const HeaderComponent = props => {
                         type="button"
                         className="trigger-button"
                       >
-                        <FiLogOut />
+                        <Icons as={FiLogOut} value={lightTheme} />
                       </HeaderItemsButton>
                     }
                   >
                     {close => (
-                      <LogoutPopUpContainer>
+                      <LogoutPopUpContainer value={lightTheme}>
                         <div>
                           <LogoutPopUpText>
                             Are you sure you want to logout?

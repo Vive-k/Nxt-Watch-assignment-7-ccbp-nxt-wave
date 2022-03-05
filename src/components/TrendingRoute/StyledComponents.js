@@ -11,8 +11,12 @@ export const LoaderOrFailureContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ;
-  height: 97%;
+  height: 97vh;
   background-color: ${props => (props.value === true ? '#f4f4f4' : '#0f0f0f')};
+
+  @media screen and (min-width: 768px) {
+    height: 100%;
+  }
 `
 
 export const HeaderWebsiteLogoImage = styled.img`

@@ -155,5 +155,5 @@ export const TextNoSavedVideos = styled.p`
   font-weight: 500;
 `
 export const NoSavedVideo = styled.h1`
-  color: ${props => (props.value === true ? null : '#ffffff')};
+  color: ${props => (props.value === true ? '#000000' : '#ffffff')};
 `
