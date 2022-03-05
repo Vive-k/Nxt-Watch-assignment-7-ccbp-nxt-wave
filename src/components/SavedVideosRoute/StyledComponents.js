@@ -13,7 +13,7 @@ export const LoaderOrFailureContainer = styled.div`
   background-color: ${props => (props.value === true ? '#f4f4f4' : '#0f0f0f')};
   height: 97vh;
   @media screen and (min-width: 768px) {
-    height: 97%;
+    height: 100%;
   }
 `
 
@@ -25,8 +25,9 @@ export const NoSearchResultsImage = styled.img`
 export const SavedTopHeadContainer = styled.div`
   display: flex;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: ${props => (props.value === true ? '#f9f9f9' : '#0f0f0f')};
   padding-left: 10px;
+  color: ${props => (props.value === true ? null : '#f4f4f4')};
 `
 
 export const SavedLogo = styled.p`
@@ -47,11 +48,10 @@ export const SavedVideoContainer = styled.ul`
 
   background-color: ${props => (props.value === true ? '#f4f4f4' : '#0f0f0f')};
   margin: 0;
-  height: 135vh;
+  height: 108vh;
   @media screen and (min-width: 576px) {
     padding-left: 20px;
     padding-top: 10px;
-
     overflow-y: scroll;
   }
 `
@@ -97,7 +97,7 @@ export const VideoTitleInformationContainer = styled.div`
   margin: 0;
 `
 export const VideoTitle = styled.p`
-  color: #1e293b;
+  color: ${props => (props.value === true ? '#0f0f0f' : '#ffffff')};
   font-weight: 600;
   margin-bottom: 0;
   padding-bottom: 0;
@@ -119,6 +119,7 @@ export const ChannelTitle = styled.p`
   padding-bottom: 10px;
   margin-top: 0;
   margin-bottom: 0;
+  color: ${props => (props.value === true ? '#000000' : '#ffffff')};
   @media screen and (min-width: 576px) {
     width: 100%;
     padding-bottom: 0;
@@ -152,4 +153,7 @@ export const PrimitiveDot = styled.p`
 export const TextNoSavedVideos = styled.p`
   color: #475569;
   font-weight: 500;
+`
+export const NoSavedVideo = styled.h1`
+  color: ${props => (props.value === true ? null : '#ffffff')};
 `

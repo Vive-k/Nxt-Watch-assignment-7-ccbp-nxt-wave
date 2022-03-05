@@ -63,29 +63,31 @@ class LoginRoute extends Component {
       return <Redirect to="/" />
     }
     return (
-      <LoginPage>
-        <NxtWatchContext.Consumer>
-          {value => {
-            const {changedAttributesOnThemeChange} = value
+      <NxtWatchContext.Consumer>
+        {value => {
+          const {lightTheme, changedAttributesOnThemeChange} = value
 
-            const {
-              showPasswordStatus,
-              showErrorMessage,
-              errorMessage,
-            } = this.state
+          const {
+            showPasswordStatus,
+            showErrorMessage,
+            errorMessage,
+          } = this.state
 
-            const passwordInputType = showPasswordStatus ? 'text' : 'password'
+          const passwordInputType = showPasswordStatus ? 'text' : 'password'
 
-            const {
-              watchLogoImage,
-              watchLogoImageAlt,
-            } = changedAttributesOnThemeChange()
+          const {
+            watchLogoImage,
+            watchLogoImageAlt,
+          } = changedAttributesOnThemeChange()
 
-            return (
+          return (
+            <LoginPage value={lightTheme}>
               <LoginCard onSubmit={this.loginCredentialsSubmission}>
                 <LogoImage src={watchLogoImage} alt={watchLogoImageAlt} />
 
-                <Label htmlFor="usernameInputField">USERNAME</Label>
+                <Label value={lightTheme} htmlFor="usernameInputField">
+                  USERNAME
+                </Label>
 
                 <InputField
                   type="text"
@@ -94,7 +96,9 @@ class LoginRoute extends Component {
                   onChange={this.takingUsernameInput}
                 />
 
-                <Label htmlFor="passwordInputField">PASSWORD</Label>
+                <Label value={lightTheme} htmlFor="passwordInputField">
+                  PASSWORD
+                </Label>
 
                 <InputField
                   type={passwordInputType}
@@ -109,17 +113,20 @@ class LoginRoute extends Component {
                     type="checkbox"
                     onChange={this.changeShowPasswordStatus}
                   />
-                  <ShowPassword htmlFor="showPasswordInputField">
+                  <ShowPassword
+                    value={lightTheme}
+                    htmlFor="showPasswordInputField"
+                  >
                     Show Password
                   </ShowPassword>
                 </div>
                 <LoginButton type="submit">Login</LoginButton>
                 {showErrorMessage && <p>*{errorMessage}</p>}
               </LoginCard>
-            )
-          }}
-        </NxtWatchContext.Consumer>
-      </LoginPage>
+            </LoginPage>
+          )
+        }}
+      </NxtWatchContext.Consumer>
     )
   }
 }

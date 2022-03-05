@@ -101,8 +101,8 @@ export const LoaderOrFailureContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
-  height: 97%;
+  background-color: ${props => (props.value === true ? '#f4f4f4' : '#0f0f0f')};
+  height: 97%; ;
 `
 export const LoaderComponent = styled.div`
   display: flex;
@@ -115,6 +115,7 @@ export const NoSearchResultsImage = styled.img`
 export const NoSearchResultsText = styled.h1`
   font-size: 25px;
   margin-bottom: 0;
+  color: ${props => (props.value === true ? null : '#ffffff')};
   @media screen and (min-width: 768px) {
     font-size: ;
   }
@@ -183,7 +184,7 @@ export const VideoTitleInformationContainer = styled.div`
   padding-top: 0px;
 `
 export const VideoTitle = styled.p`
-  color: #1e293b;
+  color: ${props => (props.value === true ? '#1e293b' : '#f1f1f1')};
   font-weight: 600;
   margin-bottom: 0;
   padding-bottom: 0;

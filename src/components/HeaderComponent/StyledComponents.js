@@ -12,6 +12,7 @@ export const HeaderNav = styled.nav`
   margin: 0;
   width: 100%;
   font-family: 'Roboto';
+  background-color: ${props => (props.value === true ? '#ffffff' : '#0f0f0f')};
 `
 
 export const HeaderWebsiteLogoImage = styled.img`
@@ -170,4 +171,7 @@ export const CancelConfirmButtons = styled.div`
   justify-content: space-around;
   align-items: center;
   margin-top: 20px;
+`
+export const SunButton = styled.p`
+  color: #ffffff;
 `

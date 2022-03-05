@@ -100,13 +100,13 @@ class HomeRoute extends Component {
     this.setState({showBanner: false})
   }
 
-  renderHomePartOnDataResponse = () => {
+  renderHomePartOnDataResponse = lightTheme => {
     const {dataFetchStatus, listOfVideosDetails} = this.state
 
     switch (dataFetchStatus) {
       case dataFetchStatusConstants.loading:
         return (
-          <LoaderOrFailureContainer data-testid="loader">
+          <LoaderOrFailureContainer data-testid="loader" value={lightTheme}>
             <LoaderComponent
               as={Loader}
               type="ThreeDots"
@@ -118,7 +118,7 @@ class HomeRoute extends Component {
         )
       case dataFetchStatusConstants.failure:
         return (
-          <LoaderOrFailureContainer>
+          <LoaderOrFailureContainer value={lightTheme}>
             <FailureViewComponent retryFunction={this.getListOfVideosData} />
           </LoaderOrFailureContainer>
         )
@@ -131,7 +131,7 @@ class HomeRoute extends Component {
                   src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
                   alt="no videos"
                 />
-                <NoSearchResultsText>
+                <NoSearchResultsText value={lightTheme}>
                   No Search Results Found
                 </NoSearchResultsText>
                 <TryDifferentText>
@@ -159,7 +159,9 @@ class HomeRoute extends Component {
                             alt="channel logo"
                           />
                           <VideoTitleInformationContainer>
-                            <VideoTitle>{each.title}</VideoTitle>
+                            <VideoTitle value={lightTheme}>
+                              {each.title}
+                            </VideoTitle>
                             <VideoInformation>
                               <ChannelTitle>{channel.name}</ChannelTitle>
                               <ChannelViewAndUpdatedTimeContainer>
@@ -254,7 +256,7 @@ class HomeRoute extends Component {
                         <BsSearch />
                       </SearchButton>
                     </SearchFieldContainer>
-                    <>{this.renderHomePartOnDataResponse()}</>
+                    <>{this.renderHomePartOnDataResponse(lightTheme)}</>
                   </HomeComponent>
                 </HomeComponentContainer>
               )

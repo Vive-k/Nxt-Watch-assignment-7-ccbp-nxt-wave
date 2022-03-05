@@ -31,7 +31,6 @@ const dataFetchStatusConstants = {
   success: 'SUCCESS',
 }
 
-// const GamingRoute = props =>
 class GamingRoute extends Component {
   state = {
     listOfGamesDetails: [],
@@ -50,8 +49,6 @@ class GamingRoute extends Component {
     })
     if (response.ok) {
       const data = await response.json()
-      console.log('**************')
-      console.log(data.videos)
 
       this.setState({dataFetchStatus: dataFetchStatusConstants.success})
       this.setState({listOfGamesDetails: data.videos})
@@ -59,16 +56,15 @@ class GamingRoute extends Component {
     if (!response.ok) {
       this.setState({dataFetchStatus: dataFetchStatusConstants.failure})
     }
-    console.log('fetching data function complete')
   }
 
-  renderRoutePartOnDataResponse = () => {
+  renderRoutePartOnDataResponse = lightTheme => {
     const {dataFetchStatus, listOfGamesDetails} = this.state
 
     switch (dataFetchStatus) {
       case dataFetchStatusConstants.loading:
         return (
-          <LoaderOrFailureContainer data-testid="loader">
+          <LoaderOrFailureContainer data-testid="loader" value={lightTheme}>
             <LoaderComponent
               as={Loader}
               type="ThreeDots"
@@ -80,42 +76,33 @@ class GamingRoute extends Component {
         )
       case dataFetchStatusConstants.failure:
         return (
-          <LoaderOrFailureContainer>
+          <LoaderOrFailureContainer value={lightTheme}>
             <FailureViewComponent retryFunction={this.getListOfGamesData} />
           </LoaderOrFailureContainer>
         )
       case dataFetchStatusConstants.success:
         return (
           <>
-            <TrendingTopHeadContainer>
-              <TrendingLogo
-                as={SiYoutubegaming}
-                style={{color: 'red', fontSize: '35px'}}
-              />
+            <TrendingTopHeadContainer theme={lightTheme}>
+              <TrendingLogo as={SiYoutubegaming} />
               <h1>Gaming</h1>
             </TrendingTopHeadContainer>
-            <NxtWatchContext.Consumer>
-              {value => {
-                const {lightTheme} = value
-                return (
-                  <TrendingsContainer data-testid="gaming" theme={lightTheme}>
-                    {listOfGamesDetails.map(each => (
-                      <TrendingVideoAndDetailsContainer key={each.id}>
-                        <LinkContainer as={Link} to={`/videos/${each.id}`}>
-                          <EachVideoThumbnailImage
-                            src={each.thumbnail_url}
-                            alt="video thumbnail"
-                          />
-                          <TitleGame>{each.title}</TitleGame>
-                          <GameDetails>{each.view_count} Watching</GameDetails>
-                          <GameDetails>Worldwide</GameDetails>
-                        </LinkContainer>
-                      </TrendingVideoAndDetailsContainer>
-                    ))}
-                  </TrendingsContainer>
-                )
-              }}
-            </NxtWatchContext.Consumer>
+
+            <TrendingsContainer data-testid="gaming" theme={lightTheme}>
+              {listOfGamesDetails.map(each => (
+                <TrendingVideoAndDetailsContainer key={each.id}>
+                  <LinkContainer as={Link} to={`/videos/${each.id}`}>
+                    <EachVideoThumbnailImage
+                      src={each.thumbnail_url}
+                      alt="video thumbnail"
+                    />
+                    <TitleGame value={lightTheme}>{each.title}</TitleGame>
+                    <GameDetails>{each.view_count} Watching</GameDetails>
+                    <GameDetails>Worldwide</GameDetails>
+                  </LinkContainer>
+                </TrendingVideoAndDetailsContainer>
+              ))}
+            </TrendingsContainer>
           </>
         )
       default:
@@ -124,15 +111,21 @@ class GamingRoute extends Component {
   }
 
   render() {
-    console.log('Gaming')
-
-    console.log(this.props)
     return (
       <div>
         <HeaderComponent />
         <NavigationSideBarComponentContainer>
           <NavigationMenuAsLeftSideBar />
-          <HomeComponent>{this.renderRoutePartOnDataResponse()}</HomeComponent>
+          <NxtWatchContext.Consumer>
+            {value => {
+              const {lightTheme} = value
+              return (
+                <HomeComponent>
+                  {this.renderRoutePartOnDataResponse(lightTheme)}
+                </HomeComponent>
+              )
+            }}
+          </NxtWatchContext.Consumer>
         </NavigationSideBarComponentContainer>
       </div>
     )

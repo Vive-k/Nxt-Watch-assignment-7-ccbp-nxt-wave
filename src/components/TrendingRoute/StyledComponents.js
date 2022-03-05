@@ -10,8 +10,13 @@ export const LoaderOrFailureContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
-  height: 97vh;
+  background-color: ;
+  height: 97%;
+  background-color: ${props => (props.value === true ? '#f4f4f4' : '#0f0f0f')};
+`
+
+export const HeaderWebsiteLogoImage = styled.img`
+  width: 50%;
 
   @media screen and (min-width: 768px) {
     height: 97%;
@@ -32,8 +37,9 @@ export const TrendingComponentContainer = styled.div`
 export const TrendingTopHeadContainer = styled.div`
   display: flex;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: ${props => (props.theme === true ? '#f9f9f9' : '#0f0f0f')};
   padding-left: 10px;
+  color: ${props => (props.theme === true ? null : '#ffffff')};
 `
 
 export const TrendingLogo = styled.p`
@@ -51,8 +57,7 @@ export const TrendingsContainer = styled.ul`
   width: 100%;
   background-color: ${props => (props.theme === true ? '#f4f4f4' : '#0f0f0f')};
   margin: 0;
-  height: 100vh;
-  border: 2px solid red;
+  height: 108.5vh;
 
   @media screen and (min-width: 576px) {
     padding-left: 20px;
@@ -103,7 +108,7 @@ export const VideoTitleInformationContainer = styled.div`
   margin: 0;
 `
 export const VideoTitle = styled.p`
-  color: #1e293b;
+  color: ${props => (props.value === true ? '#1e293b' : '#ffffff')};
   font-weight: 600;
   margin-bottom: 0;
   padding-bottom: 0;

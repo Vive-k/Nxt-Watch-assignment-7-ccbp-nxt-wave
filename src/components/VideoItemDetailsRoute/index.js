@@ -67,7 +67,7 @@ class VideoItemDetailsRoute extends Component {
     }
   }
 
-  renderRoutePartOnDataResponse = () => {
+  renderRoutePartOnDataResponse = lightTheme => {
     const {dataFetchStatus, videoDetails} = this.state
 
     const {channel} = videoDetails
@@ -75,7 +75,7 @@ class VideoItemDetailsRoute extends Component {
     switch (dataFetchStatus) {
       case dataFetchStatusConstants.loading:
         return (
-          <LoaderOrFailureContainer data-testid="loader">
+          <LoaderOrFailureContainer data-testid="loader" value={lightTheme}>
             <LoaderComponent
               as={Loader}
               type="ThreeDots"
@@ -87,7 +87,7 @@ class VideoItemDetailsRoute extends Component {
         )
       case dataFetchStatusConstants.failure:
         return (
-          <LoaderOrFailureContainer>
+          <LoaderOrFailureContainer value={lightTheme}>
             <FailureViewComponent retryFunction={this.getVideoData} />
           </LoaderOrFailureContainer>
         )
@@ -102,7 +102,7 @@ class VideoItemDetailsRoute extends Component {
               height="70vh"
             />
 
-            <VideoTitle>{videoDetails.title}</VideoTitle>
+            <VideoTitle value={lightTheme}>{videoDetails.title}</VideoTitle>
 
             <VideoDetailsOptionsContainers>
               <ViewsAndUpdatedTimeContainer>
@@ -191,7 +191,7 @@ class VideoItemDetailsRoute extends Component {
                 alt="channel logo"
               />
               <div>
-                <ChannelTitle>{channel.name}</ChannelTitle>
+                <ChannelTitle value={lightTheme}>{channel.name}</ChannelTitle>
                 <ChannelSubscriber>
                   {channel.subscriber_count} subscribers
                 </ChannelSubscriber>
@@ -208,9 +208,6 @@ class VideoItemDetailsRoute extends Component {
   }
 
   render() {
-    console.log('VideoItemDetails')
-    console.log(this.props)
-
     return (
       <div>
         <HeaderComponent />
@@ -224,7 +221,7 @@ class VideoItemDetailsRoute extends Component {
                   data-testid="videoItemDetails"
                   value={lightTheme}
                 >
-                  {this.renderRoutePartOnDataResponse()}
+                  {this.renderRoutePartOnDataResponse(lightTheme)}
                 </TrendingComponentContainer>
               )
             }}

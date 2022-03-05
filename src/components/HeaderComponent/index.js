@@ -35,11 +35,10 @@ import {
   LogoutPopUpCancelButton,
   LogoutPopUpConfirmButton,
   CancelConfirmButtons,
+  SunButton,
 } from './StyledComponents'
 
 const HeaderComponent = props => {
-  console.log('Header')
-
   const sessionOut = () => {
     const {history} = props
     Cookies.remove('jwt_token')
@@ -61,7 +60,7 @@ const HeaderComponent = props => {
         } = changedAttributesOnThemeChange()
 
         return (
-          <HeaderNav>
+          <HeaderNav value={lightTheme}>
             <Link to="/">
               <HeaderWebsiteLogoImage
                 src={watchLogoImage}
@@ -79,7 +78,7 @@ const HeaderComponent = props => {
                   {lightTheme ? (
                     <FaMoon />
                   ) : (
-                    <FiSun style={{color: '#ffffff'}} />
+                    <SunButton as={FiSun} style={{color: '#ffffff'}} />
                   )}
                 </HeaderItemsButton>
               </HeaderItems>

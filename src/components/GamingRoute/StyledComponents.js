@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const NavigationSideBarComponentContainer = styled.div`
   display: flex;
 `
-export const container = styled.div``
 
 export const LoaderOrFailureContainer = styled.div`
   text-align: center;
@@ -11,11 +10,11 @@ export const LoaderOrFailureContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
   height: 97vh;
+  background-color: ${props => (props.value === false ? '#0f0f0f' : '#f4f4f4')};
 
   @media screen and (min-width: 768px) {
-    height: 97%;
+    height: 100%;
   }
 `
 export const LoaderComponent = styled.div`
@@ -30,7 +29,8 @@ export const HomeComponent = styled.div`
 export const TrendingTopHeadContainer = styled.div`
   display: flex;
   align-items: center;
-  background-color: #f9f9f9;
+  color: ${props => (props.theme === true ? null : '#ffffff')};
+  background-color: ${props => (props.theme === true ? '#f9f9f9' : '#0f0f0f')};
   padding-left: 10px;
   margin: 0;
 `
@@ -49,13 +49,13 @@ export const TrendingsContainer = styled.ul`
   width: 100%;
   background-color: ${props => (props.theme === true ? '#f4f4f4' : '#0f0f0f')};
   margin: 0;
-  height: 100vh;
   display: flex;
   flex-wrap: wrap;
 
   @media screen and (min-width: 576px) {
     padding-left: 20px;
     padding-top: 20px;
+    height: 110vh;
 
     overflow-y: scroll;
   }
@@ -85,9 +85,10 @@ export const EachVideoThumbnailImage = styled.img`
 export const TitleGame = styled.p`
   font-size: 20px;
   font-weight: 700;
-  color: #000000;
+
   margin: 0;
   padding: 0;
+  color: ${props => (props.value === true ? null : '#ffffff')};
 `
 
 export const GameDetails = styled.p`

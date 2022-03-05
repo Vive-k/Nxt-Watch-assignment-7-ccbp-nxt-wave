@@ -6,6 +6,7 @@ export const LoginPage = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: ${props => (props.value === true ? null : '#0f0f0f')};
 `
 
 export const LoginCard = styled.form`
@@ -24,7 +25,7 @@ export const LogoImage = styled.img`
 `
 
 export const Label = styled.label`
-  color: #616e7c;
+  color: ${props => (props.value === true ? '#616e7c' : '#cccccc')};
   font-weight: 500;
   margin-top: 20px;
 `
@@ -39,7 +40,7 @@ export const InputField = styled.input`
 
 export const ShowPassword = styled.label`
   font-weight: 600;
-  color: #000000;
+  color: ${props => (props.value === false ? '#ebebeb' : null)};
 `
 export const LoginButton = styled.button`
   width: 100%;

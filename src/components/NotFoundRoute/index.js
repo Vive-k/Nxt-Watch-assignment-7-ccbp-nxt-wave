@@ -2,32 +2,43 @@ import HeaderComponent from '../HeaderComponent'
 import NavigationMenuAsLeftSideBar from '../NavigationMenuAsLeftSideBar'
 import NxtWatchContext from '../../Context/NxtWatchContext'
 
-const NotFoundRoute = props => {
-  console.log('NotFoundRoute')
-  console.log(props)
-  return (
-    <div>
-      <HeaderComponent />
+import {
+  NavigationAndComponentContainer,
+  LoaderOrFailureContainer,
+  FailureViewImage,
+  NotFound,
+} from './StyledComponents'
+
+const NotFoundRoute = () => (
+  <div>
+    <HeaderComponent />
+    <NavigationAndComponentContainer>
       <NavigationMenuAsLeftSideBar />
       <NxtWatchContext.Consumer>
         {value => {
-          const {changedAttributesOnThemeChange} = value
+          const {lightTheme, changedAttributesOnThemeChange} = value
           const {
             notFoundImage,
             notFoundImageAlt,
           } = changedAttributesOnThemeChange()
 
           return (
-            <div>
-              <img src={notFoundImage} alt={notFoundImageAlt} />
-              <h1>Page Not Found</h1>
-              <p>we are sorry, the page you requested could not be found.</p>
-            </div>
+            <LoaderOrFailureContainer value={lightTheme}>
+              <FailureViewImage
+                src={notFoundImage}
+                alt={notFoundImageAlt}
+                value={lightTheme}
+              />
+              <NotFound value={lightTheme}>Page Not Found</NotFound>
+              <NotFound value={lightTheme} as="p">
+                we are sorry, the page you requested could not be found.
+              </NotFound>
+            </LoaderOrFailureContainer>
           )
         }}
       </NxtWatchContext.Consumer>
-    </div>
-  )
-}
+    </NavigationAndComponentContainer>
+  </div>
+)
 
 export default NotFoundRoute

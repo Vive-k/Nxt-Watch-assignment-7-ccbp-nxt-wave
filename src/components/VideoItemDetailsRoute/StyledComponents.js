@@ -10,9 +10,8 @@ export const LoaderOrFailureContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
+  background-color: ${props => (props.value === true ? '#f4f4f4' : '#0f0f0f')};
   height: 97vh;
-
   @media screen and (min-width: 768px) {
     height: 97%;
   }
@@ -27,6 +26,7 @@ export const TrendingComponentContainer = styled.div`
 
   background-color: ${props => (props.value === true ? '#ffffff' : '#0f0f0f')};
   @media screen and (min-width: 576px) {
+    height: 120vh;
     overflow-y: scroll;
   }
 `
@@ -49,6 +49,7 @@ export const VideoTitle = styled.p`
   font-size: 20px;
   color: #000000;
   font-weight: 500;
+  color: ${props => (props.value === true ? null : '#ffffff')};
 `
 export const VideoDetailsOptionsContainers = styled.div`
   display: flex;
@@ -108,6 +109,7 @@ export const CustomizeButton = styled.button`
 export const ChannelTitle = styled.p`
   color: #181818;
   font-weight: 600;
+  color: ${props => (props.value === true ? null : '#ffffff')};
 `
 export const ChannelSubscriber = styled.p`
   color: #64748b;

@@ -13,23 +13,23 @@ const FailureViewComponent = props => {
     retryFunction()
   }
 
-  console.log('failure view component')
   return (
     <NxtWatchContext.Consumer>
       {value => {
-        const {changedAttributesOnThemeChange} = value
+        const {lightTheme, changedAttributesOnThemeChange} = value
         const {
           failureViewImage,
           failureViewImageAlt,
         } = changedAttributesOnThemeChange()
 
         return (
-          <div>
+          <>
             <FailureViewImage
+              value={lightTheme}
               src={failureViewImage}
               alt={failureViewImageAlt}
             />
-            <FailureTextSomethingWentWrong>
+            <FailureTextSomethingWentWrong value={lightTheme}>
               Oops! Something Went Wrong
             </FailureTextSomethingWentWrong>
             <HavingTroubleText>
@@ -39,7 +39,7 @@ const FailureViewComponent = props => {
             <RetryButton type="button" onClick={retry}>
               Retry
             </RetryButton>
-          </div>
+          </>
         )
       }}
     </NxtWatchContext.Consumer>
